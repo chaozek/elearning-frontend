@@ -22,7 +22,7 @@ const SingleCourse = () => {
   }, [slug]);
 
   const markComplete = async (lessonId) => {
-    const { data } = await axios.post(`/api/mark-complete/`, {
+    const { data } = await axios.post(`/api/mark-complete`, {
       courseId: course._id,
       lessonId,
     });
@@ -34,7 +34,7 @@ const SingleCourse = () => {
   }, [course, updateState]);
 
   const loadCompletedLessons = async () => {
-    const { data } = await axios.post(`/api/list-completed/`, {
+    const { data } = await axios.post(`/api/list-completed`, {
       courseId: course._id,
     });
     setCompletedLessons(data);
@@ -42,7 +42,7 @@ const SingleCourse = () => {
 
   const markIncomplete = async (lessonId) => {
     try {
-      const { data } = await axios.post(`/api/mark-incompleted/`, {
+      const { data } = await axios.post(`/api/mark-incompleted`, {
         courseId: course._id,
         lessonId,
       });
