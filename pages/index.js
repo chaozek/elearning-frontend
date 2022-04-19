@@ -24,7 +24,7 @@ const Index = ({ courses }) => {
 };
 export async function getServerSideProps(context) {
   const token = context.req.cookies.token;
-  const { data } = await axios.get("http://localhost:3000/api/courses");
+  const { data } = await axios.get("/api/courses");
   return {
     props: {
       courses: data,
