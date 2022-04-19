@@ -28,7 +28,6 @@ const MyApp = ({ Component, pageProps }) => {
         <link rel="shortcut icon" href="../favicon.ico" />
       </Head>
       <GlobalStyle />
-
       <ToastContainer />
       <Nav />
       <Component {...pageProps} />

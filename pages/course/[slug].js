@@ -16,7 +16,7 @@ const CoursePageView = ({ course }) => {
   const handlePaidEnrollment = async (e) => {
     try {
       if (!user) {
-        Router.push("/login");
+        router.push("/login");
       }
       if (enroll.status)
         return router.push(`/user/course/${enroll.course.slug}`);
