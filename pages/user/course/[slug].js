@@ -58,6 +58,15 @@ const SingleCourse = () => {
     }
   };
 
+  useEffect(() => {
+    const collapse = localStorage.getItem("userMenu");
+    const parsedCollapse = JSON.parse(collapse);
+    setCollapse(parsedCollapse);
+  }, []);
+  const handleCollapse = (mode) => {
+    localStorage.setItem("userMenu", JSON.stringify(mode));
+    setCollapse(mode);
+  };
   return (
     <StudentRoute>
       {!course.lessons ? (
@@ -65,7 +74,7 @@ const SingleCourse = () => {
       ) : (
         <div style={{ display: "flex" }}>
           {collapse ? (
-            <button onClick={() => setCollapse(!collapse)}>Open</button>
+            <button onClick={() => handleCollapse(false)}>Open</button>
           ) : (
             <div
               style={{
@@ -73,7 +82,7 @@ const SingleCourse = () => {
                 wordWrap: "break-word",
               }}
             >
-              <button onClick={() => setCollapse(!collapse)}>Close</button>
+              <button onClick={() => handleCollapse(true)}>Close</button>
               <p
                 style={{
                   whiteSpace: "initial",
@@ -100,7 +109,7 @@ const SingleCourse = () => {
               </p>
             </div>
           )}
-          <div style={{ width: "75%" }}>
+          <div style={{ width: collapse ? "100%" : "75%" }}>
             <>
               <div
                 style={{

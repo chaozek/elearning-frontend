@@ -23,23 +23,17 @@ export default class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <link rel="shortcut icon" href="/images/favicon.ico" />
-          <link
-            rel="apple-touch-icon"
-            sizes="180x180"
-            href="/images/favicon.ico"
+          <meta charSet="utf-8" />
+          <meta
+            name="viewport"
+            content="initial-scale=1.0, width=device-width"
           />
+          <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
           <link
-            rel="icon"
-            type="image/png"
-            sizes="32x32"
-            href="/images/favicon.ico"
-          />
-          <link
-            rel="icon"
-            type="image/png"
-            sizes="16x16"
-            href="/images/favicon.ico"
+            href="https://fonts.googleapis.com/css2?family=Akshar:wght@300;400;500;700&display=swap"
+            rel="stylesheet"
           />
         </Head>
         <body>
