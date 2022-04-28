@@ -5,19 +5,27 @@ import Card from "./Card";
 import styled from "styled-components";
 import { devices } from "responsive/devices";
 
-const CardList = ({ courses }) => {
+const CardList = ({ courses, header = "Header" }) => {
   return (
-    <CardListWrapper>
-      {courses && courses.map((course, i) => <Card course={course} />)}
-    </CardListWrapper>
+    <>
+      <CardHeader className="mt-5">{header}</CardHeader>
+      <CardListWrapper>
+        {courses &&
+          courses.map((course, i) => <Card key={i} course={course} />)}
+      </CardListWrapper>
+    </>
   );
 };
 const CardListWrapper = styled.div`
-  max-width: 1200px;
   margin: 0 auto;
   display: grid;
   grid-gap: 1rem;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   padding: 1rem;
+`;
+const CardHeader = styled.h2`
+  text-align: center;
+  font-style: italic;
+  font-weight: 100;
 `;
 export default CardList;

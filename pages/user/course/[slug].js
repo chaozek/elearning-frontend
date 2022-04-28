@@ -1,4 +1,5 @@
 import axios from "axios";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
@@ -15,12 +16,13 @@ const SingleCourse = () => {
     const { data } = await axios.get(`/api/course/user/${slug}`);
     setCourse(data);
   };
+  console.log(router.query, "SLUG");
   useEffect(() => {
     if (slug) {
       getCourse();
     }
   }, [slug]);
-
+  console.log(course);
   const markComplete = async (lessonId) => {
     const { data } = await axios.post(`/api/mark-complete`, {
       courseId: course._id,
@@ -99,6 +101,7 @@ const SingleCourse = () => {
                         onClick={() => setClicked(i)}
                       >
                         {lesson.title}
+
                         {completedLessons.includes(lesson._id) && (
                           <p>Completed</p>
                         )}

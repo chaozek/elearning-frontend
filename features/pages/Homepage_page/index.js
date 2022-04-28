@@ -1,2 +1,2 @@
-import Homepage from "./components/HomePage";
+import Homepage from "../components/HomePage";
 export { Homepage };

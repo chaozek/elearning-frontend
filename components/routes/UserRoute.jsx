@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import UserNav from "./../nav/UserNav";
+import Layout from "Layouts/Layout";
 const UserRouter = ({ children, showNav = true }) => {
   const [ok, setOk] = useState({ ok: false });
   const router = useRouter();
@@ -22,20 +23,15 @@ const UserRouter = ({ children, showNav = true }) => {
   }, []);
 
   return (
-    <>
+    <Layout>
       {!ok ? (
         <p>Loading...</p>
       ) : (
         <div style={{ display: "flex" }}>
-          {showNav && (
-            <div style={{ width: "25%" }}>
-              <UserNav />
-            </div>
-          )}
-          <div style={{ width: "75%" }}>{children}</div>
+          <div>{children}</div>
         </div>
       )}
-    </>
+    </Layout>
   );
 };
 

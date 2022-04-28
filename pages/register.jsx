@@ -1,12 +1,20 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+import {
+  AlignPage,
+  Button,
+  Form,
+  Input,
+} from "@/styling/GlobalStyledCompStyles";
+import Layout from "Layouts/Layout";
 
 const register = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
+    passwordRepeat: "",
   });
   const [loading, setLoading] = useState(false);
 
@@ -21,6 +29,7 @@ const register = () => {
       });
       setLoading(false);
     } catch (error) {
+      console.log(error.response.data.message, "MSG");
       toast.error(error.response.data.message, {
         icon: false,
       });
@@ -32,50 +41,55 @@ const register = () => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
   return (
-    <>
-      <div>
-        <div>
-          <div>
-            <h2>Welcome back,</h2>
-            <form>
-              <label>
-                <span>Name</span>
-                <input
-                  type="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={(e) => handleChange(e)}
-                />
-              </label>
-              <label>
-                <span>Email</span>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={(e) => handleChange(e)}
-                />
-              </label>
-              <label>
-                <span>Password</span>
-                <input
-                  type="password"
-                  name="password"
-                  value={formData.password}
-                  onChange={(e) => handleChange(e)}
-                />
-              </label>
-            </form>
-          </div>
-          <button
-            onClick={(e) => handleSubmit(e)}
+    <Layout>
+      <AlignPage>
+        <h2>Register</h2>
+        <Form onSubmit={(e) => handleSubmit(e)}>
+          <label>
+            <span>Nick Name</span>
+          </label>
+          <Input
+            type="name"
+            name="name"
+            value={formData.name}
+            onChange={(e) => handleChange(e)}
+          />
+          <label>
+            <span>Email</span>
+          </label>
+          <Input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={(e) => handleChange(e)}
+          />
+          <label>
+            <span>Password</span>
+          </label>
+          <Input
+            type="password"
+            name="password"
+            value={formData.password}
+            onChange={(e) => handleChange(e)}
+          />
+          <label>
+            <span>Repeat Password</span>
+          </label>
+          <Input
+            type="password"
+            name="passwordRepeat"
+            value={formData.passwordRepeat}
+            onChange={(e) => handleChange(e)}
+          />
+          <Button
+            type="submit"
             disabled={!formData.name || !formData.email || loading}
           >
-            {loading ? "LOADING" : "SUBMIT"}
-          </button>
-        </div>
-      </div>
-    </>
+            {loading ? "LOADING" : "REGISTER"}
+          </Button>
+        </Form>
+      </AlignPage>
+    </Layout>
   );
 };
 

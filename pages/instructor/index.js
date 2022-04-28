@@ -26,7 +26,6 @@ const InstructorIndex = () => {
           courses.map((course, i) => {
             return (
               <tr key={i}>
-                {console.log(course)}
                 <td>
                   <img
                     src={course.image && course.image.Location}

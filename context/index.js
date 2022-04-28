@@ -34,6 +34,7 @@ const Provider = ({ children }) => {
   const router = useRouter();
 
   useEffect(() => {
+    console.log("AAAAAA");
     dispatch({
       type: "LOGIN",
       payload: JSON.parse(localStorage.getItem("user")),
@@ -49,10 +50,11 @@ const Provider = ({ children }) => {
     },
     function (error) {
       let res = error.response;
+      console.log(res, "ERROR");
       if (
-        error.response &&
-        error.response.status &&
-        res.status === 401 &&
+        res &&
+        res.status &&
+        (res.status === 401 || res.status === 403) &&
         res.config &&
         !res.config.__isRetryRequest
       ) {

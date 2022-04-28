@@ -2,11 +2,8 @@ import Link from "next/link";
 import React from "react";
 import styled from "styled-components";
 import { H4Header, StyledLink } from "../../../styling/GlobalStyledCompStyles";
-
+import { SimpleButton } from "@/styling/GlobalStyledCompStyles";
 const Card = ({ course }) => {
-  {
-    console.log(course);
-  }
   return (
     <StyledLink href={`course/${course.slug}`}>
       <CardStyled>
@@ -20,9 +17,16 @@ const Card = ({ course }) => {
           <Text className="mt-10 fw-light">{course.description}</Text>
           <AlignCenter className="my-10 space-between">
             <div>{course.lessons.length} Lekcí</div>
-            <div>XXX</div>
+            {course.paid && !course.bought && (
+              <CardPrice>{course.price} $</CardPrice>
+            )}
+            {!course.paid && !course.bought ? (
+              <CardFreeBadge>Free</CardFreeBadge>
+            ) : (
+              course.bought && <CardFreeBadge orange>Enrolled</CardFreeBadge>
+            )}
           </AlignCenter>
-          <SimpleButton>Jít na kurz</SimpleButton>
+          <SimpleButton>Go to course</SimpleButton>
         </div>
       </CardStyled>
     </StyledLink>
@@ -45,17 +49,24 @@ const Text = styled.p`
   color: var(--text-gray);
   text-transform: capitalize;
 `;
+const CardPrice = styled.p`
+  color: var(--text-gray);
+  text-transform: capitalize;
+  font-weight: bold;
+`;
 const Row = styled.div`
   display: flex;
+`;
+const CardFreeBadge = styled.div`
+  display: flex;
+  background-color: ${(props) => (props.orange ? "#f05400" : "#026d21")};
+  color: white;
+  padding: 1px 10px;
+  border-radius: 3px;
 `;
 const AlignCenter = styled.div`
   display: flex;
   align-items: center;
 `;
-const SimpleButton = styled.p`
-  color: var(--text-blue);
-  font-weight: bold;
-  text-transform: capitalize;
-  cursor: pointer;
-`;
+
 export default Card;

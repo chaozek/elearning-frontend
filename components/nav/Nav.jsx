@@ -20,7 +20,7 @@ const Nav = () => {
   const [toggleHamburgerMenu, setToggleHamburgerMenu] = useState(false);
   const router = useRouter();
   const [width, height] = useWindowSize();
-  console.log(width);
+  console.log(user, "USEEERR");
 
   useEffect(() => {
     if (width > 647) {
@@ -42,7 +42,7 @@ const Nav = () => {
         icon: "🚀",
       });
       setLoading(false);
-      router.push("/");
+      router.push("/login");
     } catch (error) {
       console.log(error);
       toast.error(error.response, {
@@ -158,6 +158,7 @@ export const NavBar = styled.div`
   justify-content: space-between;
   align-items: center;
   min-height: 40px;
+  margin-bottom: 3rem;
 `;
 
 export const Logo = styled.div`
