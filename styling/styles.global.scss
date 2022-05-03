@@ -1,5 +1,5 @@
 @import "~./variables";
-
+@import "../features/Sidebar/sidebar.scss";
 .mt-10{
     margin-top:10px !important
 }
@@ -30,6 +30,9 @@
 }
 .justify-space-between{
     justify-content: space-between;
+}
+.no-wrap{
+    flex-wrap: nowrap;
 }
 .mr-10{
     margin-right:10px;

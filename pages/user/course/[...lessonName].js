@@ -10,11 +10,13 @@ import styled, { keyframes } from "styled-components";
 import { Animated } from "react-animated-css";
 
 import {
+  Button,
   Li,
   StyledLink,
   StyledLinkWrapper,
   Ul,
 } from "@/styling/GlobalStyledCompStyles";
+import Sidebar from "features/Sidebar/Sidebar";
 
 const LessonName = () => {
   const router = useRouter();
@@ -101,69 +103,35 @@ const LessonName = () => {
         "LOADING"
       ) : (
         <div style={{ display: "flex" }}>
-          {collapse ? (
-            <button onClick={() => handleCollapse(false)}>
-              <i class="bi bi-chevron-bar-right"></i>
-            </button>
-          ) : (
-            <Slider
-              style={{
-                width: "25%",
-                wordWrap: "break-word",
-              }}
-            >
-              <button onClick={() => handleCollapse(true)}>
-                <i class="bi bi-chevron-bar-left"></i>
-              </button>
-
-              <Ul>
-                {course?.lessons?.map((less, i) => {
-                  return (
-                    <StyledLinkWrapper>
-                      <StyledLink
-                        className="pointer"
-                        href={`/user/course/${course?.slug}/${less?.slug}/${less?._id}`}
-                      >
-                        <Li
-                          key={i}
-                          onClick={() => setClicked(i)}
-                          style={{
-                            background: lesson._id === less._id && "#D1D7DC",
-                            color: "#777A7D",
-                            padding: "5px",
-                          }}
-                        >
-                          <div className={"flex justify-space-between"}>
-                            {less.title}
-                            <div className="mr-10">
-                              {completedLessons.includes(less._id) ? (
-                                <i class="bi bi-check-circle-fill green"></i>
-                              ) : (
-                                <i class="bi bi-dash-circle-fill red"></i>
-                              )}
-                            </div>
-                          </div>
-                        </Li>
-                      </StyledLink>
-                    </StyledLinkWrapper>
-                  );
-                })}
-              </Ul>
-            </Slider>
-          )}
-          <div style={{ width: collapse ? "100%" : "75%" }}>
+          <Sidebar
+            course={course}
+            lesson={lesson}
+            completedLessons={completedLessons}
+            handleCollapse={handleCollapse}
+            collapse={collapse}
+            setClicked={setClicked}
+          />
+          <div style={{ width: "100%" }}>
             <div
               style={{
                 display: "flex",
-                justifyContent: "flex-end",
+                justifyContent: "space-between",
+                alignItems: "center",
                 background: "#EFEFEF",
                 fontWeight: "bold",
                 color: "#616161",
                 cursor: "pointer",
                 borderRadius: "5px",
-                padding: "10px 5px",
+                padding: "2px",
               }}
             >
+              <Button small radius onClick={() => handleCollapse(!collapse)}>
+                {collapse ? (
+                  <i class="bi bi-chevron-bar-left"></i>
+                ) : (
+                  <i class="bi bi-chevron-bar-right"></i>
+                )}
+              </Button>
               {completedLessons.includes(course.lessons[clicked]._id) ? (
                 <p onClick={() => markIncomplete(course.lessons[clicked]._id)}>
                   Mark As Incomplete <i class="bi bi-dash-circle-fill red"></i>
@@ -177,7 +145,6 @@ const LessonName = () => {
             </div>
             <ReactPlayer
               url={lesson.video.Location}
-              height="100%"
               width="100%"
               controls
               onEnded={() => markComplete(lessons._id)}
@@ -186,7 +153,6 @@ const LessonName = () => {
           </div>
         </div>
       )}
-      <pre>{JSON.stringify(lesson, null, 2)}</pre>
     </StudentRoute>
   );
 };

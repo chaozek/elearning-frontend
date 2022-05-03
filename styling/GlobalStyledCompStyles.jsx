@@ -33,7 +33,8 @@ const Button = styled.button`
   background-color: white;
   color: black;
   border: 2px solid #555555;
-  padding: 8px 32px;
+  padding: ${(p) => (p.small ? 1 : 10)}px;
+  border-radius: ${(p) => (p.radius ? 5 : 0)}px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
