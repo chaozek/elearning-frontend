@@ -11,6 +11,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Nav from "../components/nav/Nav";
 import { GlobalStyles } from "../styling/GlobalStyles";
 import "../styling/styles.global.scss";
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 const MyApp = ({ Component, pageProps }) => {
   return (
@@ -18,6 +19,10 @@ const MyApp = ({ Component, pageProps }) => {
       <Head>
         <title>SSR styled-components with Next.js Starter</title>
         <link rel="shortcut icon" href="../favicon.ico" />
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"
+        />
       </Head>
       <GlobalStyles />
       <ToastContainer />

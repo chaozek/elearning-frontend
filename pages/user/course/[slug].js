@@ -16,7 +16,7 @@ const SingleCourse = () => {
     const { data } = await axios.get(`/api/course/user/${slug}`);
     setCourse(data);
   };
-  console.log(router.query, "SLUG");
+  console.log(course, "course");
   useEffect(() => {
     if (slug) {
       getCourse();
@@ -80,7 +80,7 @@ const SingleCourse = () => {
           ) : (
             <div
               style={{
-                width: "25%",
+                width: "100%",
                 wordWrap: "break-word",
               }}
             >
@@ -93,15 +93,12 @@ const SingleCourse = () => {
                 <ul>
                   {course?.lessons?.map((lesson, i) => {
                     return (
-                      <li
-                        style={{
-                          color: "red",
-                        }}
-                        key={i}
-                        onClick={() => setClicked(i)}
-                      >
-                        {lesson.title}
-
+                      <li key={i} onClick={() => setClicked(i)}>
+                        <Link
+                          href={`/user/course/${course?.slug}/${lesson?.slug}/${lesson?._id}`}
+                        >
+                          {lesson.title}
+                        </Link>
                         {completedLessons.includes(lesson._id) && (
                           <p>Completed</p>
                         )}
@@ -112,7 +109,7 @@ const SingleCourse = () => {
               </p>
             </div>
           )}
-          <div style={{ width: collapse ? "100%" : "75%" }}>
+          {/*  <div style={{ width: collapse ? "100%" : "75%" }}>
             <>
               <div
                 style={{
@@ -144,7 +141,7 @@ const SingleCourse = () => {
               />
               <p>{course.lessons[clicked].content}</p>
             </>
-          </div>
+          </div> */}
         </div>
       )}
     </StudentRoute>

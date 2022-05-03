@@ -63,6 +63,15 @@ const Input = styled.input`
     outline: none;
   }
 `;
+const Li = styled.li`
+  list-style: none;
+  a {
+    color: #777a7d;
+  }
+`;
+const Ul = styled.ul`
+  padding: 0;
+`;
 export {
   H4Header,
   StyledLink,
@@ -72,4 +81,6 @@ export {
   Button,
   Form,
   Input,
+  Li,
+  Ul,
 };

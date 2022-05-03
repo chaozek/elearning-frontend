@@ -34,7 +34,6 @@ const Provider = ({ children }) => {
   const router = useRouter();
 
   useEffect(() => {
-    console.log("AAAAAA");
     dispatch({
       type: "LOGIN",
       payload: JSON.parse(localStorage.getItem("user")),

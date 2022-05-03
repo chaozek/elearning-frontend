@@ -29,8 +29,8 @@ const Index = ({ courses, req, cookies }) => {
 };
 export async function getServerSideProps(context) {
   const { params, req, res } = context;
-
-  if (req.cookies.user) {
+  console.log(req.cookies.user, "req.cookies.user");
+  if (req.cookies.user || req.cookies.token) {
     const token = context.req.cookies.token;
     const { data } = await axios.get(
       process.env.NODE_ENV === "development"
@@ -44,6 +44,8 @@ export async function getServerSideProps(context) {
         cookies: req.cookies.user,
       },
     };
+  } else if (req.cookies.user && !req.cookies.token) {
+    return;
   } else {
     const token = context.req.cookies.token;
     const { data } = await axios.get(

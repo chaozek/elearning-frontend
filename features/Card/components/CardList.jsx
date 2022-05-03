@@ -23,9 +23,10 @@ const CardListWrapper = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   padding: 1rem;
 `;
-const CardHeader = styled.h2`
+export const CardHeader = styled.h2`
   text-align: center;
   font-style: italic;
   font-weight: 100;
+  margin-bottom: 0;
 `;
 export default CardList;
