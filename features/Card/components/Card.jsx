@@ -2,11 +2,12 @@ import Link from "next/link";
 import React from "react";
 import styled from "styled-components";
 import { H4Header, StyledLink } from "../../../styling/GlobalStyledCompStyles";
-import { SimpleButton } from "@/styling/GlobalStyledCompStyles";
-const Card = ({ course }) => {
+import { SimpleButton, Button } from "@/styling/GlobalStyledCompStyles";
+const Card = ({ course, myCourses = false }) => {
   return (
     <StyledLink href={`course/${course.slug}`}>
       <CardStyled>
+        {console.log(myCourses, "FALSE")}
         <div>
           <Row>
             <Image src={course.image.Location} />
@@ -20,13 +21,13 @@ const Card = ({ course }) => {
             {course.paid && !course.bought && (
               <CardPrice>{course.price} $</CardPrice>
             )}
-            {!course.paid && !course.bought ? (
-              <CardFreeBadge>Free</CardFreeBadge>
+            {!myCourses && !course.paid && !course.bought ? (
+              <CardBadge>Free</CardBadge>
             ) : (
-              course.bought && <CardFreeBadge orange>Enrolled</CardFreeBadge>
+              course.bought && <CardBadge orange>Enrolled</CardBadge>
             )}
           </AlignCenter>
-          <SimpleButton>Go to course</SimpleButton>
+          <Button>{myCourses ? "Continue" : "Go to course"}</Button>
         </div>
       </CardStyled>
     </StyledLink>
@@ -34,7 +35,8 @@ const Card = ({ course }) => {
 };
 
 const CardStyled = styled.div`
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   border-radius: 10px;
   padding: 1rem;
   height: 100%;
@@ -44,6 +46,7 @@ const Image = styled.img`
   width: 50px;
   height: 50px;
   border-radius: 15px;
+  object-fit: cover;
 `;
 const Text = styled.p`
   color: var(--text-gray);
@@ -57,12 +60,15 @@ const CardPrice = styled.p`
 const Row = styled.div`
   display: flex;
 `;
-const CardFreeBadge = styled.div`
+export const CardBadge = styled.div`
+  display: inline-block;
   display: flex;
   background-color: ${(props) => (props.orange ? "#f05400" : "#026d21")};
   color: white;
   padding: 1px 10px;
   border-radius: 3px;
+  width: fit-content;
+  margin-left: 5px;
 `;
 const AlignCenter = styled.div`
   display: flex;

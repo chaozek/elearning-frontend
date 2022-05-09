@@ -6,6 +6,8 @@ import { useRouter } from "next/router";
 import InstructorRoute from "../../../../components/routes/InstructorRoute";
 import ReactMarkdown from "react-markdown";
 import reactMarkdown from "react-markdown";
+import { CardHeader } from "features/Card/components/CardList";
+import { Button, Li, Ul } from "@/styling/GlobalStyledCompStyles";
 const CourseView = () => {
   const router = useRouter();
   const [course, setCourse] = useState({ name: "", lessons: [{}] });
@@ -108,38 +110,44 @@ const CourseView = () => {
   return (
     <InstructorRoute>
       <>
+        <CardHeader>Course overview</CardHeader>
         {course && (
           <>
             <h1>{course.name}</h1>
             <ReactMarkdown>{course.description}</ReactMarkdown>
-            <img
-              src={course.image && course.image.Location}
-              style={{ width: "200px" }}
-            />
+            <img src={course?.image?.Location} style={{ width: "200px" }} />
           </>
         )}
-        <button>
-          {course && !course.published ? (
-            <p
-              style={{ color: "green", fontWeight: "bold" }}
-              onClick={(e) => handlePublish(e, course._id, "publish")}
-            >
-              Publish Course
-            </p>
-          ) : (
-            <p
-              style={{ color: "green", fontWeight: "bold" }}
-              onClick={(e) => handlePublish(e, course._id, "unpublish")}
-            >
-              Unpublish Course
-            </p>
-          )}
-        </button>
-        <button onClick={() => router.push(`/instructor/course/edit/${slug}`)}>
-          Edit
-        </button>
-        <h4>students: {students}</h4>
-        <button onClick={() => setShow(!show)}>Add Lesson</button>
+        <div style={{ display: "flex" }}>
+          <p>
+            Students: {students} Lessons: {course && course.lessons.length}{" "}
+          </p>
+        </div>
+        <>
+          <Button>
+            {course && !course.published ? (
+              <p
+                style={{ fontWeight: "bold" }}
+                onClick={(e) => handlePublish(e, course._id, "publish")}
+              >
+                Publish Course
+              </p>
+            ) : (
+              <p
+                style={{ fontWeight: "bold" }}
+                onClick={(e) => handlePublish(e, course._id, "unpublish")}
+              >
+                Unpublish Course
+              </p>
+            )}
+          </Button>
+          <Button
+            onClick={() => router.push(`/instructor/course/edit/${slug}`)}
+          >
+            Edit
+          </Button>
+          <Button onClick={() => setShow(!show)}>Add Lesson</Button>
+        </>
         <div>
           {show && (
             <>
@@ -195,9 +203,9 @@ const CourseView = () => {
                 ) : (
                   "Loading"
                 )}
-                <button onClick={(e) => handleSubmit(e)}>
+                <Button onClick={(e) => handleSubmit(e)}>
                   SUBMIT & Continue
-                </button>
+                </Button>
               </form>
             </>
           )}
@@ -205,18 +213,18 @@ const CourseView = () => {
       </>
       {course && course.lessons.length > 0 && (
         <>
-          <ul>
-            <h1>{course && course.lessons.length} Lessons</h1>
+          <h4 className="mt-3">Lessons:</h4>
+          <Ul>
             {course.lessons.map((lesson, i) => {
               return (
                 <>
-                  <li style={{ color: "black" }}>
-                    {i}. {lesson.title}
-                  </li>
+                  <Li>
+                    {i + 1}. {lesson.title}
+                  </Li>
                 </>
               );
             })}
-          </ul>
+          </Ul>
         </>
       )}
     </InstructorRoute>

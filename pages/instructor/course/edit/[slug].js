@@ -5,6 +5,16 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import InstructorRoute from "../../../../components/routes/InstructorRoute";
 import ReactPlayer from "react-player";
+import { CardHeader } from "features/Card/components/CardList";
+import {
+  Button,
+  Input,
+  Li,
+  Select,
+  Textarea,
+  Ul,
+} from "@/styling/GlobalStyledCompStyles";
+import { List } from "pages/course/[slug]";
 
 const EditCourse = () => {
   const [values, setValues] = useState({
@@ -170,113 +180,113 @@ const EditCourse = () => {
         "LOADING"
       ) : (
         <>
-          {" "}
-          <h1>Edit Course</h1>
-          <form>
-            <label style={{ width: "100%" }}>
+          <CardHeader>Edit Course</CardHeader>
+          <form className="flex" style={{ flexDirection: "column" }}>
+            <label>
               <span>Course name</span>
-              <input
-                type="text"
-                name="name"
-                value={values.name}
-                onChange={(e) => handleChange(e)}
-              />
-              <label style={{ width: "100%" }}>
-                <span>Course free or paid</span>
-                <select
-                  onChange={(e) => {
-                    setValues({
-                      ...values,
-                      paid: JSON.parse(e.target.value),
-                      price: 0,
-                    });
-                  }}
-                >
-                  <option value={false}>Free</option>
-                  <option value={true}>Paid</option>
-                </select>
-              </label>
             </label>
+            <Input
+              type="text"
+              style={{ flex: "auto" }}
+              name="name"
+              value={values.name}
+              onChange={(e) => handleChange(e)}
+            />
+            <label>
+              <span>Course free or paid</span>
+            </label>
+            <Select
+              onChange={(e) => {
+                setValues({
+                  ...values,
+                  paid: JSON.parse(e.target.value),
+                  price: 0,
+                });
+              }}
+            >
+              <option value={false}>Free</option>
+              <option value={true}>Paid</option>
+            </Select>
             {values.paid === true && (
-              <label style={{ width: "100%" }}>
-                <span>Price</span>
-                <input
+              <>
+                <label>
+                  <span>Price</span>
+                </label>
+                <Input
                   type="number"
                   name="price"
                   value={values.price}
                   onChange={(e) => handleChange(e)}
                 />
-              </label>
+              </>
             )}
             <label style={{ width: "100%" }}>
               <span>Description</span>
-              <input
-                type="text"
-                name="description"
-                value={values.description}
-                onChange={(e) => handleChange(e)}
-              />
             </label>
+            <Textarea
+              type="text"
+              name="description"
+              value={values.description}
+              onChange={(e) => handleChange(e)}
+            />
 
             {loading ? (
               "UPLOADING..."
             ) : (
-              <>
-                <label style={{ width: "100%" }}>
+              <div>
+                <label>
                   <span>{image.Key ? image.Key : "Upload Image"}</span>
-                  <div
-                    style={{
-                      backgroundColor: "green",
-                      borderRadius: "20px",
-                      width: "100%",
-                      height: "20px",
-                      marginTop: "-20px",
-                      color: "white",
-                      cursor: "pointer",
-                    }}
-                  >
-                    <input
-                      type="file"
-                      name="image"
-                      onChange={(e) => handleImage(e)}
-                      accept="image/*"
-                      hidden
-                    />
-                  </div>
                 </label>
-                <img src={values.image && values.image.Location} />
+                <div
+                  style={{
+                    borderRadius: "20px",
+                    color: "white",
+                    cursor: "pointer",
+                  }}
+                >
+                  <input
+                    type="file"
+                    name="image"
+                    onChange={(e) => handleImage(e)}
+                    accept="image/*"
+                    className="py-2"
+                  />
+                </div>
+                {!preview && (
+                  <img
+                    style={{ width: "100px" }}
+                    src={values.image && values.image.Location}
+                  />
+                )}
 
                 {preview && (
-                  <div>
-                    <img src={preview} style={{ width: "150px" }} />
+                  <div className="mb-5">
+                    <img src={preview} style={{ width: "100px" }} />
                   </div>
                 )}
-              </>
+              </div>
             )}
 
-            <label style={{ width: "100%" }}>
+            <label>
               <span>category</span>
-              <input
-                type="text"
-                name="category"
-                value={values.category}
-                onChange={(e) => handleChange(e)}
-              />
             </label>
-            <button onClick={(e) => handleSubmit(e)}>SUBMIT & Continue</button>
+            <Input
+              type="text"
+              name="category"
+              value={values.category}
+              onChange={(e) => handleChange(e)}
+            />
+            <Button onClick={(e) => handleSubmit(e)}>SUBMIT & Continue</Button>
           </form>
           {values && values.lessons.length > 0 && (
             <>
-              <ul onDragOver={(e) => e.preventDefault()}>
+              <Ul onDragOver={(e) => e.preventDefault()}>
                 <h1>{values && values.lessons.length} Lessons</h1>
                 {values.lessons.map((lesson, i) => {
                   return (
-                    <>
-                      <li
+                    <List full>
+                      <Li
                         style={{
-                          color: "white",
-                          background: "green",
-                          margin: "5px",
                           cursor: "move",
                         }}
                         draggable
@@ -290,51 +300,53 @@ const EditCourse = () => {
                           }}
                         >
                           <div>
-                            {i}. {lesson.title}
+                            {i + 1}. {lesson.title}
                           </div>
                           <div>
                             <div
                               style={{ display: "inline-block", color: "red" }}
                               onClick={(e) => handleDelete(e, i)}
+                              className="px-2 pointer"
                             >
-                              X
+                              <i class="bi bi-trash3"></i>
                             </div>
                             <div
                               style={{ display: "inline-block" }}
+                              className="px-2 pointer"
                               onClick={() => {
                                 setVisible(true);
                                 setCurrent(lesson);
                               }}
                             >
-                              update
+                              <i class="bi bi-tools"></i>
                             </div>
                           </div>
                         </div>
-                      </li>
-                    </>
+                      </Li>
+                    </List>
                   );
                 })}
                 {visible && (
-                  <>
-                    <form>
-                      <label style={{ width: "100%" }}>
+                  <div>
+                    <form className="flex " style={{ flexDirection: "column" }}>
+                      <label>
                         <span>Title</span>
-                        <input
-                          type="text"
-                          name="title"
-                          value={current.title}
-                          onChange={(e) => handleChangeCurrent(e)}
-                        />
                       </label>
-                      <label style={{ width: "100%" }}>
+                      <Input
+                        type="text"
+                        name="title"
+                        value={current.title}
+                        onChange={(e) => handleChangeCurrent(e)}
+                      />
+                      <label>
                         <span>description</span>
-                        <textarea
-                          type="text"
-                          name="content"
-                          value={current.content}
-                          onChange={(e) => handleChangeCurrent(e)}
-                        />
                       </label>
+                      <Textarea
+                        type="text"
+                        name="content"
+                        value={current.content}
+                        onChange={(e) => handleChangeCurrent(e)}
+                      />
                       <div style={{ position: "relative" }}>
                         {current.video && current.video.Location && (
                           <ReactPlayer
@@ -344,19 +356,20 @@ const EditCourse = () => {
                             controls
                           />
                         )}
-                        <label style={{ width: "100%" }}>
+                        <label>
                           <span>video</span>
-                          <input
-                            type="file"
-                            name="video"
-                            onChange={(e) => handleVideo(e)}
-                            accept="video/*"
-                          />
                         </label>
+                        <Input
+                          type="file"
+                          name="video"
+                          onChange={(e) => handleVideo(e)}
+                          accept="video/*"
+                        />
                       </div>
-                      <label style={{ display: "block" }}>
-                        FREE PREVIEW
-                        <input
+                      <div className="flex align-center">
+                        <label style={{ display: "block" }}>FREE PREVIEW</label>
+                        <Input
+                          className=" mx-3"
                           type="checkbox"
                           onChange={(e) =>
                             setCurrent({
@@ -365,15 +378,15 @@ const EditCourse = () => {
                             })
                           }
                         />
-                        <span className="slider round" />
-                      </label>
-                      <button onClick={(e) => handleUpdateLesson(e)}>
+                      </div>
+                      <span className="slider round" />
+                      <Button onClick={(e) => handleUpdateLesson(e)}>
                         Update Lesson
-                      </button>
+                      </Button>
                     </form>
-                  </>
+                  </div>
                 )}
-              </ul>
+              </Ul>
             </>
           )}
         </>

@@ -53,7 +53,6 @@ const Nav = () => {
   };
 
   const handleToggleHamburgerMenu = () => {
-    console.log("HIT");
     setToggleHamburgerMenu(!toggleHamburgerMenu);
   };
   if (loading) return <p>Loading</p>;
@@ -91,8 +90,8 @@ const Nav = () => {
             <div>
               {user && user.role && user.role.includes("Instructor") ? (
                 <Li>
-                  <StyledLink href="/instructor/course/create">
-                    Create course
+                  <StyledLink href="/instructor/">
+                    Instructor Dashboard
                   </StyledLink>
                 </Li>
               ) : (
@@ -151,6 +150,9 @@ export const Li = styled.li`
   align-items: center;
   a {
     color: var(--primary-gray);
+    :hover {
+      color: #777a7d;
+    }
   }
 `;
 export const NavBar = styled.div`

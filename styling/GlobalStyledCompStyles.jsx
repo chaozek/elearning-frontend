@@ -30,8 +30,8 @@ const AlignPage = styled.div`
   flex-direction: column;
 `;
 const Button = styled.button`
-  background-color: white;
-  color: black;
+  background-color: ${(p) => (p.filled ? "#1C1D1F" : "white")};
+  color: ${(p) => (p.filled ? "white" : "1C1D1F")};
   border: 2px solid #555555;
   padding: ${(p) => (p.small ? 1 : 10)}px;
   border-radius: ${(p) => (p.radius ? 5 : 0)}px;
@@ -43,8 +43,8 @@ const Button = styled.button`
   transition-duration: 0.4s;
   cursor: pointer;
   :hover {
-    background-color: #555555;
-    color: white;
+    background-color: ${(p) => (p.filled ? "white" : "#555555")};
+    color: ${(p) => (p.filled ? "#555555" : "white")};
   }
 `;
 const Form = styled.form`
@@ -57,6 +57,22 @@ const Form = styled.form`
   }
 `;
 const Input = styled.input`
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  &:focus {
+    outline: none;
+  }
+`;
+const Select = styled.select`
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  &:focus {
+    outline: none;
+  }
+`;
+const Textarea = styled.textarea`
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
@@ -84,4 +100,6 @@ export {
   Input,
   Li,
   Ul,
+  Select,
+  Textarea,
 };

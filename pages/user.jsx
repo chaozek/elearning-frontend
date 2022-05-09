@@ -21,7 +21,7 @@ const user = () => {
   }, []);
   return (
     <Layout>
-      <MyCourses courses={courses} header={"My Courses"} />
+      <MyCourses myCourses={true} courses={courses} header={"My Courses"} />
     </Layout>
   );
 };

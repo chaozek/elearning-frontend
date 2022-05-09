@@ -32,7 +32,7 @@ const Sidebar = ({
                       key={i}
                       onClick={() => setClicked(i)}
                       style={{
-                        background: lesson._id === less._id && "#D1D7DC",
+                        background: lesson?._id === less?._id && "#D1D7DC",
                         color: "#777A7D",
                         padding: "5px",
                         borderRadius: "0px 5px 5px 0px",

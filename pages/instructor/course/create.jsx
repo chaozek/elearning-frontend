@@ -4,12 +4,14 @@ import Resizer from "react-image-file-resizer";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
+import { CardHeader } from "features/Card/components/CardList";
+import { Button, Input, Select } from "@/styling/GlobalStyledCompStyles";
 
 const CreateCourse = () => {
   const [values, setValues] = useState({
     name: "",
     description: "",
-    price: 9.99,
+    price: 0,
     uploading: false,
     paid: false,
     loading: false,
@@ -81,79 +83,67 @@ const CreateCourse = () => {
   };
   return (
     <InstuctorRoute>
-      <h1>Create Course</h1>
-      <form>
-        <label style={{ width: "100%" }}>
+      <CardHeader>Create Course</CardHeader>
+      <form className="flex" style={{ flexDirection: "column" }}>
+        <label>
           <span>Course name</span>
-          <input
-            type="text"
-            name="name"
-            value={values.name}
-            onChange={(e) => handleChange(e)}
-          />
-          <label style={{ width: "100%" }}>
-            <span>Course free or paid</span>
-            <select
-              onChange={(e) => {
-                setValues({
-                  ...values,
-                  paid: JSON.parse(e.target.value),
-                  price: 0,
-                });
-              }}
-            >
-              <option value={false}>Free</option>
-              <option value={true}>Paid</option>
-            </select>
-          </label>
         </label>
+        <Input
+          type="text"
+          name="name"
+          value={values.name}
+          onChange={(e) => handleChange(e)}
+        />
+        <label>Course free or paid</label>
+        <Select
+          onChange={(e) => {
+            setValues({
+              ...values,
+              paid: JSON.parse(e.target.value),
+              price: 0,
+            });
+          }}
+        >
+          <option value={false}>Free</option>
+          <option value={true}>Paid</option>
+        </Select>
+
         {values.paid === true && (
-          <label style={{ width: "100%" }}>
-            <span>Price</span>
-            <input
+          <>
+            <label>
+              <span>Price</span>
+            </label>
+            <Input
               type="number"
               name="price"
               value={values.price}
               onChange={(e) => handleChange(e)}
             />
-          </label>
+          </>
         )}
         <label style={{ width: "100%" }}>
           <span>Description</span>
-          <input
-            type="text"
-            name="description"
-            value={values.description}
-            onChange={(e) => handleChange(e)}
-          />
         </label>
+        <Input
+          type="text"
+          name="description"
+          value={values.description}
+          onChange={(e) => handleChange(e)}
+        />
 
         {loading ? (
           "UPLOADING..."
         ) : (
           <>
-            <label style={{ width: "100%" }}>
+            <label>
               <span>{image.Key ? image.Key : "Upload Image"}</span>
-              <div
-                style={{
-                  backgroundColor: "green",
-                  borderRadius: "20px",
-                  width: "100%",
-                  height: "20px",
-                  marginTop: "-20px",
-                  color: "white",
-                  cursor: "pointer",
-                }}
-              >
-                <input
-                  type="file"
-                  name="image"
-                  onChange={(e) => handleImage(e)}
-                  accept="image/*"
-                  hidden
-                />
-              </div>
             </label>
+            <input
+              type="file"
+              name="image"
+              onChange={(e) => handleImage(e)}
+              accept="image/*"
+            />
             {preview && (
               <div>
                 <div
@@ -177,19 +167,17 @@ const CreateCourse = () => {
           </>
         )}
 
-        <label style={{ width: "100%" }}>
+        <label>
           <span>category</span>
-          <input
-            type="text"
-            name="category"
-            value={values.category}
-            onChange={(e) => handleChange(e)}
-          />
         </label>
-        <button onClick={(e) => handleSubmit(e)}>SUBMIT & Continue</button>
+        <Input
+          type="text"
+          name="category"
+          value={values.category}
+          onChange={(e) => handleChange(e)}
+        />
+        <Button onClick={(e) => handleSubmit(e)}>SUBMIT & Continue</Button>
       </form>
-      <pre>{JSON.stringify(values, null, 4)}</pre>
-      <pre>{JSON.stringify(image, null, 4)}</pre>
     </InstuctorRoute>
   );
 };

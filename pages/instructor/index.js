@@ -2,6 +2,9 @@ import axios from "axios";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import InstructorRoute from "../../components/routes/InstructorRoute";
+import styled from "styled-components";
+import { Button } from "@/styling/GlobalStyledCompStyles";
+import { CardHeader } from "features/Card/components/CardList";
 
 const InstructorIndex = () => {
   const [courses, setCourses] = useState([]);
@@ -14,59 +17,61 @@ const InstructorIndex = () => {
   }, []);
   return (
     <InstructorRoute>
-      <thead>
-        <th></th>
-        <th>Name</th>
-        <th>Price</th>
-        <th>Link</th>
-        <th>Lesson count</th>
-      </thead>
-      <tbody>
+      <CardHeader>Created courses</CardHeader>
+      <HorizontalList>
         {courses &&
           courses.map((course, i) => {
             return (
-              <tr key={i}>
-                <td>
+              <HorizontalListItem key={i} className="py-2">
+                <div style={{ textAlign: "left" }}>
                   <img
                     src={course.image && course.image.Location}
-                    style={{ width: "100px" }}
+                    style={{
+                      width: "130px",
+                      height: "130px",
+                      objectFit: "cover",
+                    }}
                   />
-                </td>
-                <td>{course.name}</td>
-                <td>{course.price} $</td>
-                <td>
+                </div>
+                <p>{course.name}</p>
+                <p>{course.price} $</p>
+                <p>{course.lessons.length} </p>
+                <div>
                   <Link href={`/instructor/course/view/${course.slug}`}>
-                    <button>Visit course</button>
+                    <Button>Edit</Button>
                   </Link>
-                </td>
-                <td>{course.lessons.length} </td>
-                <td>
-                  {course.lessons.length < 5 ? (
-                    <p style={{ color: "red", fontWeight: "bold" }}>
-                      "You need atleast 5 lessons to publish course "
-                    </p>
-                  ) : course.publish ? (
-                    <p
-                      style={{ color: "green", fontWeight: "bold" }}
-                      onClick={() => handlePublish(e)}
-                    >
-                      Publish Course
-                    </p>
-                  ) : (
-                    <p
-                      style={{ color: "green", fontWeight: "bold" }}
-                      onClick={() => handlePublish(e)}
-                    >
-                      Unpublish Course
-                    </p>
-                  )}
-                </td>
-              </tr>
+                </div>
+              </HorizontalListItem>
             );
           })}
-      </tbody>
+      </HorizontalList>
     </InstructorRoute>
   );
 };
+export const HorizontalList = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+export const HorizontalListItem = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  text-align: center;
+  transition-duration: 0.2s;
 
+  & p,
+  img,
+  Link,
+  div {
+    flex: 1 1 0px;
+    flex-basis: 100%;
+  }
+  :hover {
+    background-color: #777a7d;
+    & p {
+      color: white;
+    }
+  }
+`;
 export default InstructorIndex;

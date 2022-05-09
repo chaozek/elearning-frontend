@@ -34,7 +34,6 @@ const LessonName = () => {
     const { data } = await axios.get(
       `/api/course/user/${courseSlug}/${lessonSlug}/${lessonIdSlug}`
     );
-    console.log(data, "DATA");
     setLesson(data.lesson);
     setCourse(data.course);
   };
@@ -50,7 +49,6 @@ const LessonName = () => {
       courseId: course._id,
       lessonId,
     });
-    console.log(data, "DATASS");
     setCompletedLessons([...completedLessons, lessonId]);
     console.log(completedLessons, "COMPLETED");
   };
@@ -98,7 +96,7 @@ const LessonName = () => {
   return (
     <StudentRoute>
       <CardHeader className="mt-5">{course.name}</CardHeader>
-      <HeaderText>{lesson.title}</HeaderText>
+      <HeaderText>{lesson?.title}</HeaderText>
       {!course.lessons ? (
         "LOADING"
       ) : (
@@ -144,7 +142,7 @@ const LessonName = () => {
               )}
             </div>
             <ReactPlayer
-              url={lesson.video.Location}
+              url={lesson?.video?.Location}
               width="100%"
               controls
               onEnded={() => markComplete(lessons._id)}

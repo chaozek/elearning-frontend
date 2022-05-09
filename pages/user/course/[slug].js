@@ -1,6 +1,7 @@
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { List, ListItem } from "pages/course/[slug]";
 import React, { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
 import StudentRoute from "../../../components/routes/StudentRoute";
@@ -71,79 +72,39 @@ const SingleCourse = () => {
   };
   return (
     <StudentRoute>
-      {!course.lessons ? (
-        "LOADING"
-      ) : (
-        <div style={{ display: "flex" }}>
-          {collapse ? (
-            <button onClick={() => handleCollapse(false)}>Open</button>
-          ) : (
-            <div
-              style={{
-                width: "100%",
-                wordWrap: "break-word",
-              }}
-            >
-              <button onClick={() => handleCollapse(true)}>Close</button>
-              <p
-                style={{
-                  whiteSpace: "initial",
-                }}
-              >
-                <ul>
-                  {course?.lessons?.map((lesson, i) => {
-                    return (
-                      <li key={i} onClick={() => setClicked(i)}>
-                        <Link
-                          href={`/user/course/${course?.slug}/${lesson?.slug}/${lesson?._id}`}
-                        >
-                          {lesson.title}
-                        </Link>
-                        {completedLessons.includes(lesson._id) && (
-                          <p>Completed</p>
-                        )}
-                      </li>
-                    );
-                  })}
-                </ul>
-              </p>
-            </div>
-          )}
-          {/*  <div style={{ width: collapse ? "100%" : "75%" }}>
-            <>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "flex-end",
-                  background: "blue",
-                  color: "white",
-                  fontWeight: "bold",
-                }}
-              >
-                {completedLessons.includes(course.lessons[clicked]._id) ? (
-                  <p
-                    onClick={() => markIncomplete(course.lessons[clicked]._id)}
-                  >
-                    Mark As Incomplete
-                  </p>
-                ) : (
-                  <p onClick={() => markComplete(course.lessons[clicked]._id)}>
-                    Mark As Completed
-                  </p>
-                )}
-              </div>
-              <ReactPlayer
-                url={course.lessons[clicked].video.Location}
-                height="100%"
-                width="100%"
-                controls
-                onEnded={() => markComplete(course.lessons[clicked]._id)}
-              />
-              <p>{course.lessons[clicked].content}</p>
-            </>
-          </div> */}
+      <div>
+        <div>
+          <div className="w-100 flex justify-content-center flex-column align-center">
+            {course?.lessons?.map((lesson) => {
+              return (
+                <List className="flex justify-content-between">
+                  <Link href={`/user/course/${course.slug}/${lesson.slug}`}>
+                    <ListItem
+                      className="flex pt-10 p-2"
+                      style={{
+                        textOverflow: "ellipsis",
+                        cursor: "pointer",
+                      }}
+                    >
+                      <i class="bi bi-play-fill"></i>
+                      <p
+                        data-tip="You have to buy this course first"
+                        style={{
+                          textOverflow: "ellipsis",
+                          overflow: "hidden",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        {lesson.title}
+                      </p>
+                    </ListItem>
+                  </Link>
+                </List>
+              );
+            })}
+          </div>
         </div>
-      )}
+      </div>
     </StudentRoute>
   );
 };

@@ -30,7 +30,7 @@ const InstructorRoute = ({ children }) => {
           <div style={{ width: "25%" }}>
             <InstructorNav />
           </div>
-          <div style={{ width: "75%" }}>{children}</div>
+          <div style={{ width: "75%", margin: "0px 10px" }}>{children}</div>
         </div>
       )}
     </>
