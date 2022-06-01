@@ -31,10 +31,7 @@ const login = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      const data = await axios.post(
-        `${process.env.REQ_URL}/api/login`,
-        formData
-      );
+      const data = await axios.post(`${process.env.REQ_URL}login`, formData);
       console.log(data, "DATA");
       dispatch({
         type: "LOGIN",

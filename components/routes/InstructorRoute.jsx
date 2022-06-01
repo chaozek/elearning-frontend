@@ -8,7 +8,9 @@ const InstructorRoute = ({ children }) => {
   const router = useRouter();
   const getInstructor = async () => {
     try {
-      const { data } = await axios.get("/api/current-instructor");
+      const { data } = await axios.get(
+        `${process.env.REQ_URL}/api/current-instructor`
+      );
       if (data.ok) {
         setOk({ ok: true });
       }
