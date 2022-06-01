@@ -80,7 +80,7 @@ const Provider = ({ children }) => {
   useEffect(() => {
     const getCsrf = async () => {
       const { data } = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}csrf-token`
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/csrf-token`
       );
       axios.defaults.headers["X-CSRF-Token"] = data.csrfToken;
     };

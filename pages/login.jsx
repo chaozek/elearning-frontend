@@ -32,7 +32,7 @@ const login = () => {
     try {
       setLoading(true);
       const data = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}login`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/login`,
         formData
       );
       console.log(data, "DATA");
