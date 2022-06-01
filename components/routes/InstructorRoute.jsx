@@ -9,7 +9,7 @@ const InstructorRoute = ({ children }) => {
   const getInstructor = async () => {
     try {
       const { data } = await axios.get(
-        `${process.env.REQ_URL}/api/current-instructor`
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/current-instructor`
       );
       if (data.ok) {
         setOk({ ok: true });

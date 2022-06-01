@@ -23,7 +23,7 @@ const register = () => {
     try {
       setLoading(true);
       const data = await axios.post(
-        `${process.env.REQ_URL}/api/register`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/register`,
         formData
       );
       console.log(data);

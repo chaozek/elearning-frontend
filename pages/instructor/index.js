@@ -10,7 +10,7 @@ const InstructorIndex = () => {
   const [courses, setCourses] = useState([]);
   const getCourses = async () => {
     let { data } = await axios.get(
-      `${process.env.REQ_URL}/api/instructor-courses`
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/instructor-courses`
     );
     setCourses(data);
   };

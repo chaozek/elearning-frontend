@@ -23,7 +23,7 @@ const CourseView = () => {
   });
   const loadData = async () => {
     const { data } = await axios.get(
-      `${process.env.REQ_URL}/api/course/${slug}`
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/course/${slug}`
     );
     setCourse(data);
   };
@@ -34,7 +34,7 @@ const CourseView = () => {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        `${process.env.REQ_URL}/api/course/${slug}/${course.instructor._id}`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/course/${slug}/${course.instructor._id}`,
         values
       );
       setCourse(data);
@@ -52,7 +52,7 @@ const CourseView = () => {
 
   const studentCount = async () => {
     const { data } = await axios.post(
-      `${process.env.REQ_URL}api/instructor/student-count`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}api/instructor/student-count`,
       {
         courseId: course._id,
       }
@@ -87,7 +87,7 @@ const CourseView = () => {
   const handleVideoRemove = async () => {
     try {
       const { data } = await axios.post(
-        `${process.env.REQ_URL}/api/course/remove-video/${course.instructor._id}`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/course/remove-video/${course.instructor._id}`,
         {
           video: values.video,
         }
@@ -101,7 +101,7 @@ const CourseView = () => {
   const handlePublish = async (e, courseId, method) => {
     if (method == "publish") {
       const { data } = await axios.put(
-        `${process.env.REQ_URL}/api/course/publish/${courseId}`
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/course/publish/${courseId}`
       );
       toast("Your course is rdy");
       setCourse(data);
@@ -109,7 +109,7 @@ const CourseView = () => {
       console.log(course, "COURSEUPDATED");
     } else {
       const { data } = await axios.put(
-        `${process.env.REQ_URL}api/course/unpublish/${courseId}`
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}api/course/unpublish/${courseId}`
       );
       toast("Your course is unpublished");
       setCourse(data);

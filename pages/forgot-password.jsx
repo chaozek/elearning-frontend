@@ -20,7 +20,7 @@ const login = () => {
       setLoading(true);
       const email = formData.email;
       const data = await axios.post(
-        `${process.env.REQ_URL}/api/forgot-password`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/forgot-password`,
         { email }
       );
       setOk(true);
@@ -40,7 +40,7 @@ const login = () => {
     try {
       setLoading(true);
       const data = await axios.post(
-        `${process.env.REQ_URL}/api/reset-password`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/reset-password`,
         formData
       );
       setOk(false);

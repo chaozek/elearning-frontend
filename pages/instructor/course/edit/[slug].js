@@ -65,7 +65,7 @@ const EditCourse = () => {
         try {
           setLoading(true);
           let { data } = await axios.post(
-            `${process.env.REQ_URL}/api/image-upload`,
+            `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/image-upload`,
             {
               image: url,
             }
@@ -88,7 +88,7 @@ const EditCourse = () => {
     e.preventDefault();
     try {
       const { data } = await axios.put(
-        `${process.env.REQ_URL}/api/course/${slug}`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/course/${slug}`,
         {
           ...values,
           image,
@@ -103,7 +103,7 @@ const EditCourse = () => {
 
   const loadCourse = async () => {
     const { data } = await axios.get(
-      `${process.env.REQ_URL}/api/course/${slug}`
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/course/${slug}`
     );
     if (data && data.image) setImage(data.image);
     setValues(data);
@@ -120,7 +120,7 @@ const EditCourse = () => {
     allLessons.splice(targetItemIndex, 0, movingItem);
     setValues({ ...values, lessons: [...allLessons] });
     const { data } = await axios.put(
-      `${process.env.REQ_URL}/api/course/${slug}`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/course/${slug}`,
       {
         ...values,
         image,
@@ -139,7 +139,7 @@ const EditCourse = () => {
     const removed = allLessons.splice(i, 1);
     setValues({ ...values, lessons: allLessons });
     const { data } = await axios.put(
-      `${process.env.REQ_URL}/api/course/${slug}/${removed[0]._id}`
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/course/${slug}/${removed[0]._id}`
     );
     setCurrent({ ...current, video: data });
   };
@@ -147,7 +147,7 @@ const EditCourse = () => {
   const handleUpdateLesson = async (e) => {
     e.preventDefault();
     const { data } = await axios.put(
-      `${process.env.REQ_URL}/api/course/lesson/${slug}/${current._id}`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/course/lesson/${slug}/${current._id}`,
       { current: current }
     );
     toast("LESSON UPDATED");
@@ -164,7 +164,7 @@ const EditCourse = () => {
   const handleVideo = async (e) => {
     if (current.video && current.video.Location) {
       const res = await axios.post(
-        `${process.env.REQ_URL}/api/course/remove-video/${values.instructor._id}`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/course/remove-video/${values.instructor._id}`,
         { video: current.video }
       );
       setCourse(data);
@@ -177,7 +177,7 @@ const EditCourse = () => {
     videoData.append("courseId", values._id);
 
     const { data } = await axios.post(
-      `${process.env.REQ_URL}/api/course/video-upload/${values.instructor._id}`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/course/video-upload/${values.instructor._id}`,
       videoData,
       {
         onUploadProgress: (e) => {

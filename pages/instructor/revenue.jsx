@@ -7,7 +7,7 @@ const revenue = () => {
   const [balance, setBalance] = useState({ pending: [] });
   const sendBalanceReq = async () => {
     const { data } = await axios.get(
-      `${process.env.REQ_URL}/api/instructor/balance`
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/instructor/balance`
     );
     console.log(data);
     setBalance(data);
@@ -20,7 +20,7 @@ const revenue = () => {
     try {
       console.log("DATA");
       const { data } = await axios.get(
-        `${process.env.REQ_URL}/api/instructor/payout-settings`
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/instructor/payout-settings`
       );
       window.location.href = data;
     } catch (error) {

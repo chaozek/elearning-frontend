@@ -32,7 +32,7 @@ const LessonName = () => {
   const courseSlug = query && query[0];
   const getLesson = async () => {
     const { data } = await axios.get(
-      `${process.env.REQ_URL}/api/course/user/${courseSlug}/${lessonSlug}/${lessonIdSlug}`
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/course/user/${courseSlug}/${lessonSlug}/${lessonIdSlug}`
     );
     setLesson(data.lesson);
     setCourse(data.course);
@@ -46,7 +46,7 @@ const LessonName = () => {
   }, [lessonSlug, courseSlug]);
   const markComplete = async (lessonId) => {
     const { data } = await axios.post(
-      `${process.env.REQ_URL}/api/mark-complete`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/mark-complete`,
       {
         courseId: course._id,
         lessonId,
@@ -73,7 +73,7 @@ const LessonName = () => {
 
   const loadCompletedLessons = async () => {
     const { data } = await axios.post(
-      `${process.env.REQ_URL}/api/list-completed`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/list-completed`,
       {
         courseId: course._id,
       }
@@ -85,7 +85,7 @@ const LessonName = () => {
   const markIncomplete = async (lessonId) => {
     try {
       const { data } = await axios.post(
-        `${process.env.REQ_URL}/api/mark-incompleted`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/mark-incompleted`,
         {
           courseId: course._id,
           lessonId,

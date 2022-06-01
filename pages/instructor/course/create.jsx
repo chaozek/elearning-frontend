@@ -43,7 +43,7 @@ const CreateCourse = () => {
         try {
           setLoading(true);
           let { data } = await axios.post(
-            `${process.env.REQ_URL}/api/image-upload`,
+            `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/image-upload`,
             {
               image: url,
             }
@@ -66,10 +66,13 @@ const CreateCourse = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post(`${process.env.REQ_URL}/api/course`, {
-        ...values,
-        image,
-      });
+      const { data } = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/course`,
+        {
+          ...values,
+          image,
+        }
+      );
       router.push("/instructor");
     } catch (error) {
       console.log(error.message);
@@ -77,9 +80,12 @@ const CreateCourse = () => {
   };
   const handleImageRemove = async () => {
     try {
-      const res = await axios.post(`${process.env.REQ_URL}/api/remove-image`, {
-        image,
-      });
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/remove-image`,
+        {
+          image,
+        }
+      );
       setImage({});
       setPreview("");
       setUploadButtonText("Upload Image");

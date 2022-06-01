@@ -9,7 +9,7 @@ const UserRouter = ({ children, showNav = true }) => {
   const getUser = async () => {
     try {
       const { data } = await axios.get(
-        `${process.env.REQ_URL}/api/current-user`
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/current-user`
       );
       if (data.ok) {
         setOk({ ok: true });

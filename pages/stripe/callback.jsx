@@ -11,7 +11,7 @@ const Callback = () => {
   useEffect(() => {
     if (user) {
       axios
-        .post(`${process.env.REQ_URL}/api/get-account-status`)
+        .post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/get-account-status`)
         .then((res) => {
           dispatch({
             type: "LOGIN",

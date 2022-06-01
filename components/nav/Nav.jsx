@@ -34,7 +34,9 @@ const Nav = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      const data = await axios.get(`${process.env.REQ_URL}/api/logout`);
+      const data = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/logout`
+      );
       dispatch({
         type: "LOGOUT",
       });
