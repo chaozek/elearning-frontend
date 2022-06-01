@@ -9,7 +9,9 @@ import { CardHeader } from "features/Card/components/CardList";
 const InstructorIndex = () => {
   const [courses, setCourses] = useState([]);
   const getCourses = async () => {
-    let { data } = await axios.get("/api/instructor-courses");
+    let { data } = await axios.get(
+      `${process.env.REQ_URL}/api/instructor-courses`
+    );
     setCourses(data);
   };
   useEffect(() => {

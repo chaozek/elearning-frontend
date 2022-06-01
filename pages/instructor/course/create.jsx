@@ -42,9 +42,12 @@ const CreateCourse = () => {
       async (url) => {
         try {
           setLoading(true);
-          let { data } = await axios.post("/api/image-upload", {
-            image: url,
-          });
+          let { data } = await axios.post(
+            `${process.env.REQ_URL}/api/image-upload`,
+            {
+              image: url,
+            }
+          );
           console.log(data);
           setValues({ ...values, loading: false });
           setImage(data);
@@ -63,7 +66,10 @@ const CreateCourse = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post("/api/course", { ...values, image });
+      const { data } = await axios.post(`${process.env.REQ_URL}/api/course`, {
+        ...values,
+        image,
+      });
       router.push("/instructor");
     } catch (error) {
       console.log(error.message);
@@ -71,7 +77,7 @@ const CreateCourse = () => {
   };
   const handleImageRemove = async () => {
     try {
-      const res = await axios.post("/api/remove-image", {
+      const res = await axios.post(`${process.env.REQ_URL}/api/remove-image`, {
         image,
       });
       setImage({});

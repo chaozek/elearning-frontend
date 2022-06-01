@@ -13,7 +13,7 @@ const user = () => {
     dispatch,
   } = useContext(Context);
   const loadCourses = async () => {
-    const { data } = await axios.get(`/api/user-courses`);
+    const { data } = await axios.get(`${process.env.REQ_URL}/api/user-courses`);
     setCourses(data);
   };
   useEffect(() => {

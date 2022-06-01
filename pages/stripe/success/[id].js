@@ -6,7 +6,9 @@ const success = () => {
   const router = useRouter();
   const { id } = router.query;
   const successRequest = async () => {
-    const { data } = await axios.get(`/api/stripe-success/${id}`);
+    const { data } = await axios.get(
+      `${process.env.REQ_URL}/api/stripe-success/${id}`
+    );
     console.log(data);
     router.push(`/user/course/${data?.course.slug}`);
   };

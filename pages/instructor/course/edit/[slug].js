@@ -64,9 +64,12 @@ const EditCourse = () => {
       async (url) => {
         try {
           setLoading(true);
-          let { data } = await axios.post("/api/image-upload", {
-            image: url,
-          });
+          let { data } = await axios.post(
+            `${process.env.REQ_URL}/api/image-upload`,
+            {
+              image: url,
+            }
+          );
           setValues({ ...values, loading: false });
           setImage(data);
           setLoading(false);
@@ -84,10 +87,13 @@ const EditCourse = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.put(`/api/course/${slug}`, {
-        ...values,
-        image,
-      });
+      const { data } = await axios.put(
+        `${process.env.REQ_URL}/api/course/${slug}`,
+        {
+          ...values,
+          image,
+        }
+      );
       router.push("/instructor");
       toast("Course Updated");
     } catch (error) {
@@ -96,7 +102,9 @@ const EditCourse = () => {
   };
 
   const loadCourse = async () => {
-    const { data } = await axios.get(`/api/course/${slug}`);
+    const { data } = await axios.get(
+      `${process.env.REQ_URL}/api/course/${slug}`
+    );
     if (data && data.image) setImage(data.image);
     setValues(data);
   };
@@ -111,10 +119,13 @@ const EditCourse = () => {
     allLessons.splice(movingItemIndex, 1); //remove one item from given index
     allLessons.splice(targetItemIndex, 0, movingItem);
     setValues({ ...values, lessons: [...allLessons] });
-    const { data } = await axios.put(`/api/course/${slug}`, {
-      ...values,
-      image,
-    });
+    const { data } = await axios.put(
+      `${process.env.REQ_URL}/api/course/${slug}`,
+      {
+        ...values,
+        image,
+      }
+    );
     toast("LESSONS REARANGED");
   };
   useEffect(() => {
@@ -127,14 +138,16 @@ const EditCourse = () => {
     let allLessons = values.lessons;
     const removed = allLessons.splice(i, 1);
     setValues({ ...values, lessons: allLessons });
-    const { data } = await axios.put(`/api/course/${slug}/${removed[0]._id}`);
+    const { data } = await axios.put(
+      `${process.env.REQ_URL}/api/course/${slug}/${removed[0]._id}`
+    );
     setCurrent({ ...current, video: data });
   };
 
   const handleUpdateLesson = async (e) => {
     e.preventDefault();
     const { data } = await axios.put(
-      `/api/course/lesson/${slug}/${current._id}`,
+      `${process.env.REQ_URL}/api/course/lesson/${slug}/${current._id}`,
       { current: current }
     );
     toast("LESSON UPDATED");
@@ -151,7 +164,7 @@ const EditCourse = () => {
   const handleVideo = async (e) => {
     if (current.video && current.video.Location) {
       const res = await axios.post(
-        `/api/course/remove-video/${values.instructor._id}`,
+        `${process.env.REQ_URL}/api/course/remove-video/${values.instructor._id}`,
         { video: current.video }
       );
       setCourse(data);
@@ -164,7 +177,7 @@ const EditCourse = () => {
     videoData.append("courseId", values._id);
 
     const { data } = await axios.post(
-      `/api/course/video-upload/${values.instructor._id}`,
+      `${process.env.REQ_URL}/api/course/video-upload/${values.instructor._id}`,
       videoData,
       {
         onUploadProgress: (e) => {

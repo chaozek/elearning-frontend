@@ -53,7 +53,9 @@ const CoursePageView = ({ course }) => {
       if (enroll.status)
         return router.push(`/user/course/${enroll.course.slug}`);
 
-      const { data } = await axios.post(`/api/paid-enrollment/${course._id}`);
+      const { data } = await axios.post(
+        `${process.env.REQ_URL}/api/paid-enrollment/${course._id}`
+      );
       const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY);
       stripe.redirectToCheckout({ sessionId: data });
     } catch (error) {
@@ -68,7 +70,9 @@ const CoursePageView = ({ course }) => {
       }
       if (enroll.status)
         return router.push(`/user/course/${enroll.course.slug}`);
-      const { data } = await axios.post(`/api/free-enrollment/${course._id}`);
+      const { data } = await axios.post(
+        `${process.env.REQ_URL}api/free-enrollment/${course._id}`
+      );
       return router.push(`/user/course/${data.course.slug}`);
     } catch (error) {
       console.log(error);

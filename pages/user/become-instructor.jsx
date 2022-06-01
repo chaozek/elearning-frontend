@@ -10,7 +10,7 @@ const BecomeInstructor = () => {
   } = useContext(Context);
   const handleClick = () => {
     axios
-      .post("/api/make-instructor")
+      .post(`${process.env.REQ_URL}/api/make-instructor`)
       .then((res) => {
         window.location.href = res.data;
       })

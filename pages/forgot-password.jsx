@@ -19,7 +19,10 @@ const login = () => {
     try {
       setLoading(true);
       const email = formData.email;
-      const data = await axios.post(`/api/forgot-password`, { email });
+      const data = await axios.post(
+        `${process.env.REQ_URL}/api/forgot-password`,
+        { email }
+      );
       setOk(true);
       setLoading(false);
       toast.success(data.data.user.name + "Check your email", {
@@ -36,7 +39,10 @@ const login = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      const data = await axios.post(`/api/reset-password`, formData);
+      const data = await axios.post(
+        `${process.env.REQ_URL}/api/reset-password`,
+        formData
+      );
       setOk(false);
       setLoading(false);
       setFormData({

@@ -32,7 +32,7 @@ const LessonName = () => {
   const courseSlug = query && query[0];
   const getLesson = async () => {
     const { data } = await axios.get(
-      `/api/course/user/${courseSlug}/${lessonSlug}/${lessonIdSlug}`
+      `${process.env.REQ_URL}/api/course/user/${courseSlug}/${lessonSlug}/${lessonIdSlug}`
     );
     setLesson(data.lesson);
     setCourse(data.course);
@@ -45,10 +45,13 @@ const LessonName = () => {
     }
   }, [lessonSlug, courseSlug]);
   const markComplete = async (lessonId) => {
-    const { data } = await axios.post(`/api/mark-complete`, {
-      courseId: course._id,
-      lessonId,
-    });
+    const { data } = await axios.post(
+      `${process.env.REQ_URL}/api/mark-complete`,
+      {
+        courseId: course._id,
+        lessonId,
+      }
+    );
     setCompletedLessons([...completedLessons, lessonId]);
     console.log(completedLessons, "COMPLETED");
   };
@@ -69,19 +72,25 @@ const LessonName = () => {
   }, []);
 
   const loadCompletedLessons = async () => {
-    const { data } = await axios.post(`/api/list-completed`, {
-      courseId: course._id,
-    });
+    const { data } = await axios.post(
+      `${process.env.REQ_URL}/api/list-completed`,
+      {
+        courseId: course._id,
+      }
+    );
     if (data) {
       setCompletedLessons(data);
     }
   };
   const markIncomplete = async (lessonId) => {
     try {
-      const { data } = await axios.post(`/api/mark-incompleted`, {
-        courseId: course._id,
-        lessonId,
-      });
+      const { data } = await axios.post(
+        `${process.env.REQ_URL}/api/mark-incompleted`,
+        {
+          courseId: course._id,
+          lessonId,
+        }
+      );
       const all = completedLessons;
       const index = all.indexOf(lessonId);
       if (index > -1) {

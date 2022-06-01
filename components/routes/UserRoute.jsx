@@ -8,7 +8,9 @@ const UserRouter = ({ children, showNav = true }) => {
   const router = useRouter();
   const getUser = async () => {
     try {
-      const { data } = await axios.get("/api/current-user");
+      const { data } = await axios.get(
+        `${process.env.REQ_URL}/api/current-user`
+      );
       if (data.ok) {
         setOk({ ok: true });
       }

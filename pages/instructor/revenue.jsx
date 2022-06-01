@@ -6,7 +6,9 @@ import InstructorRoute from "../../components/routes/InstructorRoute";
 const revenue = () => {
   const [balance, setBalance] = useState({ pending: [] });
   const sendBalanceReq = async () => {
-    const { data } = await axios.get(`/api/instructor/balance`);
+    const { data } = await axios.get(
+      `${process.env.REQ_URL}/api/instructor/balance`
+    );
     console.log(data);
     setBalance(data);
   };
@@ -17,7 +19,9 @@ const revenue = () => {
   const handlePayoutSettings = async () => {
     try {
       console.log("DATA");
-      const { data } = await axios.get("/api/instructor/payout-settings");
+      const { data } = await axios.get(
+        `${process.env.REQ_URL}/api/instructor/payout-settings`
+      );
       window.location.href = data;
     } catch (error) {
       console.log(error);

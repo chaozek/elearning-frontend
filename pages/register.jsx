@@ -22,7 +22,10 @@ const register = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      const data = await axios.post(`/api/register`, formData);
+      const data = await axios.post(
+        `${process.env.REQ_URL}/api/register`,
+        formData
+      );
       console.log(data);
       toast.success(data.data.email + "WELCOME", {
         icon: "🚀",

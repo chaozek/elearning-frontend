@@ -79,9 +79,7 @@ const Provider = ({ children }) => {
 
   useEffect(() => {
     const getCsrf = async () => {
-      const { data } = await axios.get(
-        `https://e-learning-be-0.herokuapp.com/api/csrf-token`
-      );
+      const { data } = await axios.get(`${process.env.REQ_URL}/api/csrf-token`);
       axios.defaults.headers["X-CSRF-Token"] = data.csrfToken;
     };
     getCsrf();
