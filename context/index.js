@@ -59,7 +59,7 @@ const Provider = ({ children }) => {
       ) {
         return new Promise((resolve, reject) => {
           axios
-            .get("/api/logout")
+            .get(`${process.env.REQ_URL}/api/logout`)
             .then((data) => {
               dispatch({ type: "LOGOUT" });
               window.localStorage.removeItem("user");
@@ -79,7 +79,7 @@ const Provider = ({ children }) => {
 
   useEffect(() => {
     const getCsrf = async () => {
-      const { data } = await axios.get("/api/csrf-token");
+      const { data } = await axios.get(`${process.env.REQ_URL}/api/csrf-token`);
       axios.defaults.headers["X-CSRF-Token"] = data.csrfToken;
     };
     getCsrf();
